@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Phan Nguyễn Mai Khôi (Mai Phan), brand strategist designing with a social-first lens.">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Mai Phan Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+<style>
+/* Layout: one-screen poster. Tiny info row on top, stacked menu right of center,
+   giant name anchored bottom-left, three image slots that swap per menu item. */
+:root {
+  --ink: #0d0d0d;
+  --paper: #f7f5f2;
+  --bg-social: #d0d692;
+  --bg-content: #d0d692;
+  --bg-campaigns: #dcf26e;
+  --bg-about: #dddcde;
+  --dim: rgba(13,13,13,.38);
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;  color-scheme: light;
+}
+html, body { height: 100%; }
+body {
+  background: var(--bg-social);
+  color: var(--ink);
+  font-family: var(--body);
+  transition: background-color .45s ease;
+  overflow-x: hidden;
+}
+.stage {
+  position: relative;
+  min-height: 100%;
+  min-height: 640px;
+  padding-inline: clamp(16px, 2vw, 28px);
+  padding-block: 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* top info row */
+.info {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.4fr auto;
+  gap: 16px;
+  font-size: 11px;
+  line-height: 1.35;
+  font-weight: 500;
+  position: relative;
+  z-index: 5;
+}
+.info a { color: inherit; text-decoration: none; }
+.info a:hover { text-decoration: underline; }
+.close {
+  width: 22px; height: 22px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+  position: relative;
+}
+.close::before, .close::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 26px; height: 1.5px; background: var(--ink);
+  transform: translate(-50%,-50%) rotate(45deg);
+}
+.close::after { transform: translate(-50%,-50%) rotate(-45deg); }
+
+/* menu */
+.menu {
+  position: absolute;
+  left: 40%;
+  top: 15%;
+  z-index: 4;
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.menu button {
+  all: unset;
+  cursor: pointer;
+  display: block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-stretch: 100%;
+  font-size: clamp(22px, 2.9vw, 44px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  transition: color .25s ease;
+}
+.menu:hover button, .menu.has-active button { color: var(--ink); }
+.menu button.is-active { color: var(--dim); }
+.menu button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.menu .sub {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-top: 2px;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .3s ease, height .3s ease;
+}
+.menu button.is-active .sub { height: 1.5em; opacity: 1; color: var(--ink); }
+
+/* giant name */
+.name { margin: 0; font-weight: 900; }
+.mai {
+  position: absolute;
+  left: clamp(10px, 1.4vw, 22px);
+  bottom: -0.17em;
+  font-family: var(--display);
+  font-weight: 900;
+  font-stretch: 112%;
+  font-size: clamp(150px, 31vw, 560px);
+  line-height: 1;
+  letter-spacing: -0.065em;
+  z-index: 2;
+  user-select: none;
+  white-space: nowrap;
+}
+.mai > span {
+  display: inline-block;
+  transform: none;
+  transition: transform .7s cubic-bezier(.7,0,.2,1);
+  transition-delay: calc(.35s + var(--i) * .08s);
+}
+.tag {
+  position: absolute;
+  left: clamp(14px, 1.8vw, 26px);
+  bottom: clamp(18px, 3vw, 44px);
+  max-width: 72%;
+  font-family: var(--display);
+  font-weight: 900;
+  font-stretch: 112%;
+  font-size: clamp(30px, 5.3vw, 96px);
+  line-height: .9;
+  letter-spacing: -0.045em;
+  z-index: 4;
+  user-select: none;
+  pointer-events: none;
+}
+.tag .line {
+  display: block;
+  padding-bottom: .1em;
+  clip-path: inset(-0.3em -0.5em 0 -0.5em);
+}
+.tag .line > span {
+  display: inline-block;
+  transform: translateY(120%);
+  transition: transform .5s cubic-bezier(.7,0,.2,1);
+  transition-delay: calc(var(--i) * .03s);
+}
+/* tagline state */
+.name.is-tag .mai > span { transform: translateY(105%); transition-delay: calc(var(--i) * .07s); }
+.name.is-tag .tag .line > span { transform: none; transition-duration: .65s; transition-timing-function: cubic-bezier(.2,.9,.25,1); transition-delay: calc(.45s + var(--i) * .07s); }
+body.tagline-on .shot.s3 { opacity: 0; transform: scale(.86); }
+.foot {
+  position: absolute;
+  right: clamp(16px, 2vw, 28px);
+  bottom: 14px;
+  font-size: 10px;
+  font-weight: 500;
+  z-index: 5;
+}
+
+/* image slots */
+.shot {
+  position: absolute;
+  z-index: 3;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(.86) translateY(10px);
+  transition: opacity .32s ease, transform .5s cubic-bezier(.2,1.4,.4,1);
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+}
+.shot.on { opacity: 1; transform: none; }
+.shot.on.s2 { transition-delay: .07s; }
+.shot.on.s3 { transition-delay: .14s; }
+.s1 { left: 6%;  top: 9%;  width: 14%; aspect-ratio: 3/4; }
+.s2 { left: 73%; top: 45%; width: 15%; aspect-ratio: 4/5; }
+.s3 { left: 42%; top: 74%; width: 11%; aspect-ratio: 4/3; z-index: 3; }
+.shot img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; display: block; filter: grayscale(1) contrast(1.08); }
+.shot[data-for="about"] img { filter: none; }
+.s2.wide { left: 66%; top: 47%; width: 22%; aspect-ratio: 3/2; }
+.s3.tall { top: 60%; width: 10%; aspect-ratio: 3/4; }
+.shot span {
+  font-size: 9px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  background: rgba(255,255,255,.88); color: var(--ink);
+  padding: 3px 5px; margin: 6px;
+}
+/* placeholder art, swap each background for a real image: background:url(your.jpg) center/cover */
+.art-a { background: radial-gradient(circle at 50% 42%, #ffd23f 0 22%, transparent 23%), linear-gradient(160deg, #1f3bd6, #0a1a6b); }
+.art-b { background: repeating-linear-gradient(90deg, #ff5a36 0 14px, #ffe9df 14px 28px); }
+.art-c { background: linear-gradient(135deg, #0f6b3a 0 50%, #e8382d 50%); }
+.art-d { background: radial-gradient(ellipse at 50% 100%, #e83a7a 0 35%, transparent 36%), #c8102e; }
+.art-e { background: radial-gradient(circle at 30% 30%, #fff 0 10%, transparent 11%), linear-gradient(180deg, #ffa61a, #ff6a00); }
+.art-f { background: repeating-linear-gradient(45deg, #111 0 10px, #9ad0ff 10px 20px); }
+.art-g { background: radial-gradient(circle at 60% 50%, #b9ff5c 0 25%, transparent 26%), #2b4a2a; }
+.art-h { background: linear-gradient(90deg, #7a2cff 0 33%, #ff2c88 33% 66%, #ffd400 66%); }
+.art-i { background: radial-gradient(circle at 50% 35%, #f4c7a1 0 20%, transparent 21%), linear-gradient(180deg, #e3141b, #8d0a10); }
+.art-j { background: radial-gradient(circle at 50% 60%, #ffcf9e 0 18%, transparent 19%), #1846d6; }
+.art-k { background: linear-gradient(200deg, #ff8a00, #ffb347 60%, #fff0d6); }
+.art-l { background: repeating-radial-gradient(circle at 50% 50%, #111 0 6px, #f7f5f2 6px 12px); }
+
+/* phone */
+@media (max-width: 700px) {
+  .stage { min-height: 100%; min-height: 720px; }
+  .info { grid-template-columns: 1fr 1fr auto; }
+  .info .hide-sm { display: none; }
+  .menu { left: clamp(16px, 2vw, 28px); top: 42%; }
+  .menu button { font-size: 30px; }
+  .s1 { left: 8%;  top: 9%;  width: 34%; }
+  .s2 { left: 56%; top: 16%; width: 36%; }
+  .s3 { left: 56%; top: 56%; width: 34%; }
+  .s2.wide { left: 46%; top: 20%; width: 48%; }
+  .s3.tall { top: 56%; width: 30%; }
+  .mai { font-size: 46vw; }
+  .tag { font-size: 9.5vw; max-width: none; right: 16px; }
+  .foot { top: 16px; bottom: auto; display: none; }
+}
+/* ---------- inner pages ---------- */
+.page {
+  min-height: 100%;
+  padding-inline: clamp(16px, 2vw, 28px);
+  padding-block: 16px 40px;
+  box-sizing: border-box;
+  animation: pageIn .5s cubic-bezier(.2,.9,.25,1);
+}
+@keyframes pageIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+a.close { display: block; }
+a.close:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.page-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  margin-top: clamp(40px, 9vh, 96px);
+}
+.page-title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 900;
+  font-stretch: 112%;
+  font-size: clamp(56px, 13vw, 230px);
+  line-height: .86;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+.page-sub {
+  margin: 14px 0 0;
+  font-size: clamp(17px, 1.8vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.page-nav { list-style: none; margin: 0; padding: 0; text-align: right; }
+.page-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: clamp(16px, 1.5vw, 22px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.page-nav a:hover { text-decoration: underline; }
+.page-nav a[aria-current="page"] { color: var(--dim); }
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 40px 24px;
+  margin-top: clamp(40px, 7vh, 80px);
+}
+.lede {
+  grid-column: 1 / span 8;
+  margin: 0;
+  font-size: clamp(21px, 2.3vw, 34px);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  max-width: 32ch;
+  text-wrap: pretty;
+}
+.about-intro { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.about-left { grid-column: 1 / span 6; display: grid; gap: 24px; min-width: 0; }
+.about-intro .lede { max-width: none; }
+.about-photo { width: 100%; max-width: 560px; height: auto; display: block; }
+.about-intro .lede b { font-weight: 800; }
+.about-body { grid-column: 7 / -1; display: grid; gap: 14px; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.45; max-width: 52ch; }
+.about-body p { margin: 0; }
+.block { grid-column: span 6; min-width: 0; }
+.block.third { grid-column: span 4; }
+.exp-rows { margin: 0; gap: 0; }
+.exp-rows .proj-row { border-top: 1.5px solid var(--ink); padding-block: clamp(18px, 2vw, 26px); }
+.exp-deck { grid-column: 6 / -1; margin: 24px 0 0; min-width: 0; }
+.deck { min-width: 0; }
+.deck-track { list-style: none; margin: 0; padding: 0; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; background: #000; }
+.deck-track::-webkit-scrollbar { display: none; }
+.deck-track:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.deck-slide { flex: 0 0 100%; scroll-snap-align: start; aspect-ratio: 16 / 9; }
+.deck-slide img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.deck-controls { display: flex; align-items: center; gap: 14px; margin-top: 10px; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.deck-btn { all: unset; cursor: pointer; width: 34px; height: 34px; display: grid; place-items: center; border: 1.5px solid var(--ink); font-size: 16px; color: var(--ink); }
+.deck-btn:hover { background: var(--ink); color: #fff; }
+.deck-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.deck-btn[disabled] { opacity: .3; cursor: default; background: none; color: var(--ink); }
+.proj-row dd.exp-trio { grid-column: 1 / -1; max-width: none; font-size: inherit; margin: clamp(20px, 2.5vw, 32px) 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.trio-item { margin: 0; min-width: 0; display: grid; gap: 10px; }
+.trio-item figcaption { order: -1; font-size: 13px; font-weight: 600; }
+.deck.tall .deck-slide { aspect-ratio: 4 / 5; }
+.deck.tall .deck-slide img { object-fit: cover; }
+.trio-video { aspect-ratio: 4 / 5; background: #000; }
+.trio-video video { width: 100%; height: 100%; object-fit: contain; display: block; }
+.compare { position: relative; margin-top: 24px; width: 100%; max-width: 560px; aspect-ratio: 900 / 1147; overflow: hidden; user-select: none; touch-action: pan-y; }
+.compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; max-width: none; }
+.compare-top { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.compare-handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.25); pointer-events: none; }
+.compare-handle::after { content: "\2194"; position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; font-size: 18px; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+.compare-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.compare-range:focus-visible ~ .compare-handle, .compare:focus-within .compare-handle::after { outline: 2px solid var(--ink); }
+.compare-tag { position: absolute; top: 10px; padding: 4px 8px; background: rgba(255,255,255,.9); color: var(--ink); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; pointer-events: none; }
+.compare-tag.left { left: 10px; }
+.compare-tag.right { right: 10px; }
+.proj-row dd.exp-pair { grid-column: 1 / -1; max-width: none; margin: clamp(20px, 2.5vw, 32px) 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.pair-deck { min-width: 0; }
+.pair-deck .deck-slide { aspect-ratio: 4 / 5; }
+.pair-deck .deck-slide img { object-fit: cover; }
+.exp-multi p { margin: 0; }
+.exp-multi p + p { margin-top: 18px; }
+.exp-rows .exp-label, .exp-rows .exp-detail { margin-top: clamp(16px, 2.5vw, 32px); }
+.exp-rows dt span { display: block; margin-top: 4px; font-size: 14px; font-weight: 400; letter-spacing: 0; }
+.block.ruled { border-top: 1.5px solid var(--ink); padding-top: 14px; }
+.block.ruled .rows li + li { border-top: 1.5px solid var(--ink); padding-top: 14px; }
+.label {
+  margin: 0 0 12px;
+  padding-top: 10px;
+  border-top: 1.5px solid var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.dates { margin: -4px 0 14px; font-size: 14px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.rows b { display: block; font-size: 18px; letter-spacing: -0.015em; }
+.rows span { display: block; font-size: 14px; line-height: 1.4; }
+.rows .muted { color: rgba(13,13,13,.62); }
+.bullets { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; font-size: 16px; line-height: 1.4; max-width: 46ch; }
+.bullets li { padding-left: 18px; position: relative; }
+.bullets li::before { content: ""; position: absolute; left: 0; top: .55em; width: 8px; height: 8px; background: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips span { border: 1.5px solid var(--ink); padding: 6px 10px; font-size: 13px; font-weight: 600; }
+.gallery {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 16px;
+}
+.gallery img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
+.gallery.wide img { aspect-ratio: 4/3; }
+.project + .project { margin-top: clamp(32px, 5vw, 72px); }
+.project.collapsible + .project.collapsible { margin-top: 0; }
+.project.collapsible { padding-block: 14px clamp(20px, 2.5vw, 32px); }
+.project.collapsible .proj-title { grid-column: 1 / -1; }
+.project.collapsible:not(.is-open) > :not(.proj-title):not(.proj-tagline) { display: none; }
+.project.collapsible.is-open > :not(.proj-title):not(.proj-tagline) { animation: caseIn .4s ease both; }
+@keyframes caseIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.proj-toggle { all: unset; cursor: pointer; display: flex; width: 100%; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.proj-toggle-text { max-width: 34ch; text-wrap: balance; }
+.proj-toggle:hover .proj-toggle-text { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.proj-toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.proj-icon { position: relative; flex: 0 0 auto; width: 26px; height: 26px; margin-top: .15em; }
+.proj-icon::before, .proj-icon::after { content: ""; position: absolute; left: 0; top: 50%; width: 100%; height: 2.5px; margin-top: -1.25px; background: var(--ink); transition: transform .3s ease; }
+.proj-icon::after { transform: rotate(90deg); }
+.project.is-open .proj-icon::after { transform: rotate(0deg); }
+@media (prefers-reduced-motion: reduce) { .project.collapsible.is-open > * { animation: none; } .proj-icon::after { transition: none; } }
+.project .proj-tagline { grid-column: 1 / -1; margin: -6px 0 0; font-size: clamp(17px, 1.6vw, 22px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em; }
+.project .proj-row dd > p { grid-column: auto; margin: 0; font-size: inherit; line-height: inherit; }
+.project .proj-row dd > p + .insight-list, .project .proj-row dd > .insight-list + p { margin-top: 16px; }
+.insight-list { gap: 12px; }
+.dd-deck { margin-top: 24px; }
+.proj-pair { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.proj-pair .pair-left { grid-column: 1 / span 6; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; display: block; }
+.proj-pair .pair-right { grid-column: 7 / -1; min-width: 0; }
+.proj-pair img.pair-right, .proj-pair img.pair-left { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; display: block; }
+
+
+.dd-img { display: block; width: 100%; max-width: 440px; height: auto; margin-top: 20px; }
+.dd-img.wide { max-width: 100%; }
+.project .proj-row dd > p.dd-after { margin-top: 20px; }
+.project {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px 24px;
+  border-top: 1.5px solid var(--ink);
+  padding-top: 14px;
+}
+.project .meta { grid-column: span 3; font-size: 12px; font-weight: 600; line-height: 1.5; }
+.project h2 {
+  grid-column: span 5;
+  margin: 0;
+  font-size: clamp(24px, 2.6vw, 40px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.project p { grid-column: span 4; margin: 0; font-size: 15px; line-height: 1.45; }
+.project .gallery { grid-column: 4 / -1; --cols: 2; }
+.project h2.proj-title { grid-column: 1 / span 6; }
+.proj-rows { grid-column: 1 / -1; margin: clamp(16px, 3vw, 40px) 0 clamp(8px, 2vw, 24px); display: grid; gap: clamp(24px, 3vw, 40px); }
+.proj-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: baseline; }
+.proj-row dt { grid-column: 1 / span 5; font-size: clamp(16px, 1.4vw, 20px); font-weight: 700; letter-spacing: -0.015em; }
+.proj-row dd { grid-column: 6 / -1; margin: 0; font-family: var(--body); font-weight: 500; font-size: clamp(18px, 1.7vw, 25px); line-height: 1.3; letter-spacing: -0.01em; max-width: 52ch; text-wrap: pretty; }
+.project-video { grid-column: 1 / span 6; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: #2a1030; }
+.project-video.right { grid-column: 7 / -1; background: #b0eecb; }
+.proj-img { grid-column: 6 / -1; width: 100%; max-width: 100%; height: auto; display: block; }
+.proj-img.left { grid-column: 1 / span 5; }
+.role-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.role-list li { position: relative; padding-left: 1.1em; }
+.role-list li::before { content: ""; position: absolute; left: 0; top: .5em; width: .38em; height: .38em; background: var(--ink); }
+.say-hi-band {
+  background: #ffffff;
+  color: var(--ink);
+  padding-inline: clamp(16px, 2vw, 28px);
+  padding-block: clamp(20px, 3vw, 36px) 12px;
+}
+.page { padding-bottom: clamp(56px, 8vw, 96px); }
+.home-link { display: none; }
+body.on-page .home-link { display: inline; }
+.say-hi {
+  max-width: 62ch;
+  font-size: clamp(12px, 0.95vw, 14px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.say-hi p { margin: 0; }
+.say-hi-mail { margin-top: 7px !important; font-weight: 800; overflow-wrap: anywhere; }
+.say-hi-mail a { color: var(--ink); text-underline-offset: 3px; }
+.page-foot {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: clamp(16px, 2.5vw, 28px); font-size: 10px; font-weight: 500;
+}
+.page-foot a { color: var(--ink); }
+@media (max-width: 700px) {
+  .page-top { grid-template-columns: 1fr; }
+  .page-nav { text-align: left; display: flex; gap: 14px; flex-wrap: wrap; }
+  .about-left, .about-intro .lede, .about-body, .lede, .block, .block.third, .project .meta, .project h2, .project p, .project .gallery { grid-column: 1 / -1; }
+  .project-video, .project-video.right, .proj-img, .proj-img.left { grid-column: 1 / -1; }
+  .exp-rows .exp-detail { margin-top: 0; }
+  .proj-row dd.exp-trio { grid-template-columns: 1fr; }
+  .proj-row dd.exp-pair { grid-template-columns: 1fr; }
+  .proj-pair .pair-left, .proj-pair .pair-right { grid-column: 1 / -1; }
+  .exp-deck { grid-column: 1 / -1; margin-top: 8px; }
+  .project h2.proj-title { grid-column: 1 / -1; }
+  .proj-row dt, .proj-row dd { grid-column: 1 / -1; }
+  .proj-row { gap: 8px; }
+  .gallery { --cols: 2; gap: 10px; }
+  .gallery img:nth-child(3):last-child { grid-column: 1 / -1; aspect-ratio: 4/3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page { animation: none; }
+  body, .shot { transition: none; }
+  .shot { transform: none; }
+  .mai > span, .tag .line > span { transition: opacity .4s ease !important; transform: none !important; }
+  .tag .line > span { opacity: 0; }
+  .name.is-tag .mai > span { opacity: 0; }
+  .name.is-tag .tag .line > span { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+
+<main class="stage" id="home">
+  <div class="info">
+    <div lang="vi">Phan Nguyễn Mai Khôi</div>
+    <div><a href="https://www.instagram.com/maiph4n/" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/in/phan-nguy%E1%BB%85n-mai-kh%C3%B4i-667519307/" target="_blank" rel="noopener">LinkedIn</a></div>
+    <div class="hide-sm">Brooklyn, New York<br>Parsons, Strategic Design &amp; Management</div>
+    <div class="close" aria-hidden="true"></div>
+  </div>
+
+  <ul class="menu" id="menu">
+    <li><button data-key="social" data-page="professional" data-bg="var(--bg-social)">Professional<span class="sub">Social Strategy and Content Production</span></button></li>
+    <li><button data-key="content" data-page="selected-work" data-bg="var(--bg-content)">Selected Work<span class="sub">Curiosity, explored</span></button></li>
+    <li><button data-key="about" data-page="about" data-bg="var(--bg-about)">About me<span class="sub">Vietnam to New York</span></button></li>
+  </ul>
+
+  <!-- Social -->
+  <div class="shot s1" data-for="social"><img src="img/studio.jpg" alt="Filming a product shoot in the studio" style="object-position:50% 45%"></div>
+  <div class="shot s2" data-for="social"><img src="img/tent.jpg" alt="Milk tent and van at a street event" style="object-position:50% 35%"></div>
+  <div class="shot s3 tall" data-for="social"><img src="img/pro3.jpg" alt="Behind the scenes on set in a loft studio"></div>
+  <!-- Content -->
+  <div class="shot s1" data-for="content"><img src="img/spire.jpg" alt="Looking up at the Chrysler Building spire, black and white film" style="object-position:60% 50%"></div>
+  <div class="shot s2 wide" data-for="content"><img src="img/street.jpg" alt="Friends with drinks outside a storefront, black and white film"></div>
+  <!-- About -->
+  <div class="shot s1" data-for="about"><img src="img/portrait.jpg" alt="Mai on a green sofa" style="object-position:50% 30%"></div>
+  <div class="shot s2 wide" data-for="about"><img src="img/heic.jpg" alt="Mai sitting on the floor holding lilies"></div>
+
+  <h1 class="name" id="name" aria-label="Mai. Brand Strategist, designing with a social-first lens.">
+    <span class="mai" aria-hidden="true"><span style="--i:0">M</span><span style="--i:1">a</span><span style="--i:2">i</span></span>
+    <span class="tag" aria-hidden="true">
+      <span class="line"><span style="--i:0">Brand</span> <span style="--i:1">Strategist,</span></span>
+      <span class="line"><span style="--i:2">designing</span> <span style="--i:3">with</span> <span style="--i:4">a</span></span>
+      <span class="line"><span style="--i:5">social-first</span> <span style="--i:6">lens.</span></span>
+    </span>
+  </h1></main>
+
+<!-- ============ PROFESSIONAL ============ -->
+<section class="page" id="professional" data-bg="var(--bg-social)" hidden>
+  <div class="info">
+    <div lang="vi"><a href="#">Phan Nguyễn Mai Khôi</a></div>
+    <div><a href="https://www.instagram.com/maiph4n/" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/in/phan-nguy%E1%BB%85n-mai-kh%C3%B4i-667519307/" target="_blank" rel="noopener">LinkedIn</a></div>
+    <div class="hide-sm">Brooklyn, New York<br>Parsons, Strategic Design &amp; Management</div>
+    <a class="close" href="#" aria-label="Back to home"></a>
+  </div>
+  <div class="page-top">
+    <div>
+      <h1 class="page-title">Professional</h1>
+      <p class="page-sub">Social Strategy and Content Production</p>
+    </div>
+    <ul class="page-nav">
+      <li><a href="#professional" aria-current="page">Professional</a></li>
+      <li><a href="#selected-work">Selected Work</a></li>
+      <li><a href="#about">About me</a></li>
+    </ul>
+  </div>
+  <div class="page-grid">
+    <p class="lede">I build the systems behind a feed: from the back end to the front.</p>
+
+    <dl class="proj-rows exp-rows">
+      <div class="proj-row">
+        <dt>Social Strategy &amp; Content Lead at Milk Agency<span>June 2025 – September 2026</span></dt>
+        <dd>Editorial and content production for @milk, about 880K followers</dd>
+        <dt class="exp-label">Challenge</dt>
+        <dd class="exp-detail">For nearly a decade, @milk was Milk Group’s corner of the internet for creative community and collaboration. But social media had changed, and reposting alone no longer grew a page. Its 880K followers were slipping, engagement was dropping, and without a clear editorial system, the feed felt scattered.</dd>
+        <dd class="exp-deck" aria-label="Milk Instagram Playbook 2025 slides">
+          <div class="deck">
+            <ul class="deck-track" tabindex="0">
+            <li class="deck-slide"><img src="img/deck/s-01.jpg" alt="Milk Instagram Playbook, slide 1 of 39" loading="eager" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-02.jpg" alt="Milk Instagram Playbook, slide 2 of 39" loading="eager" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-03.jpg" alt="Milk Instagram Playbook, slide 3 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-04.jpg" alt="Milk Instagram Playbook, slide 4 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-05.jpg" alt="Milk Instagram Playbook, slide 5 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-06.jpg" alt="Milk Instagram Playbook, slide 6 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-07.jpg" alt="Milk Instagram Playbook, slide 7 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-08.jpg" alt="Milk Instagram Playbook, slide 8 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-09.jpg" alt="Milk Instagram Playbook, slide 9 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-10.jpg" alt="Milk Instagram Playbook, slide 10 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-11.jpg" alt="Milk Instagram Playbook, slide 11 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-12.jpg" alt="Milk Instagram Playbook, slide 12 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-13.jpg" alt="Milk Instagram Playbook, slide 13 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-14.jpg" alt="Milk Instagram Playbook, slide 14 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-15.jpg" alt="Milk Instagram Playbook, slide 15 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-16.jpg" alt="Milk Instagram Playbook, slide 16 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-17.jpg" alt="Milk Instagram Playbook, slide 17 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-18.jpg" alt="Milk Instagram Playbook, slide 18 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-19.jpg" alt="Milk Instagram Playbook, slide 19 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-20.jpg" alt="Milk Instagram Playbook, slide 20 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-21.jpg" alt="Milk Instagram Playbook, slide 21 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-22.jpg" alt="Milk Instagram Playbook, slide 22 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-23.jpg" alt="Milk Instagram Playbook, slide 23 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-24.jpg" alt="Milk Instagram Playbook, slide 24 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-25.jpg" alt="Milk Instagram Playbook, slide 25 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-26.jpg" alt="Milk Instagram Playbook, slide 26 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-27.jpg" alt="Milk Instagram Playbook, slide 27 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-28.jpg" alt="Milk Instagram Playbook, slide 28 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-29.jpg" alt="Milk Instagram Playbook, slide 29 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-30.jpg" alt="Milk Instagram Playbook, slide 30 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-31.jpg" alt="Milk Instagram Playbook, slide 31 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-32.jpg" alt="Milk Instagram Playbook, slide 32 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-33.jpg" alt="Milk Instagram Playbook, slide 33 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-34.jpg" alt="Milk Instagram Playbook, slide 34 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-35.jpg" alt="Milk Instagram Playbook, slide 35 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-36.jpg" alt="Milk Instagram Playbook, slide 36 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-37.jpg" alt="Milk Instagram Playbook, slide 37 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-38.jpg" alt="Milk Instagram Playbook, slide 38 of 39" loading="lazy" width="1280" height="720"></li>
+            <li class="deck-slide"><img src="img/deck/s-39.jpg" alt="Milk Instagram Playbook, slide 39 of 39" loading="lazy" width="1280" height="720"></li>
+            </ul>
+            <div class="deck-controls">
+              <button type="button" class="deck-btn deck-prev" aria-label="Previous slide">←</button>
+              <span class="deck-count">1 / 39</span>
+              <button type="button" class="deck-btn deck-next" aria-label="Next slide">→</button>
+            </div>
+          </div>
+        </dd>
+        <dt class="exp-label">Solution</dt>
+        <dd class="exp-detail">I rebuilt @milk’s editorial strategy around defined content pillars and ran it for a year, leading everything from creative outreach and content production to editorial planning and posting.</dd>
+        <dd class="exp-trio">
+          <figure class="trio-item">
+            <div class="deck tall" aria-label="About Last Night: Bryce Glenn carousel">
+              <ul class="deck-track" tabindex="0">
+                <li class="deck-slide"><img src="img/bryce/s-01.jpg" alt="About Last Night: Bryce Glenn, slide 1 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/bryce/s-02.jpg" alt="About Last Night: Bryce Glenn, slide 2 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/bryce/s-03.jpg" alt="About Last Night: Bryce Glenn, slide 3 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/bryce/s-04.jpg" alt="About Last Night: Bryce Glenn, slide 4 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/bryce/s-05.jpg" alt="About Last Night: Bryce Glenn, slide 5 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/bryce/s-06.jpg" alt="About Last Night: Bryce Glenn, slide 6 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/bryce/s-07.jpg" alt="About Last Night: Bryce Glenn, slide 7 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/bryce/s-08.jpg" alt="About Last Night: Bryce Glenn, slide 8 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/bryce/s-09.jpg" alt="About Last Night: Bryce Glenn, slide 9 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/bryce/s-10.jpg" alt="About Last Night: Bryce Glenn, slide 10 of 10" loading="lazy" width="900" height="1125"></li>
+              </ul>
+              <div class="deck-controls">
+                <button type="button" class="deck-btn deck-prev" aria-label="Previous slide">←</button>
+                <span class="deck-count">1 / 10</span>
+                <button type="button" class="deck-btn deck-next" aria-label="Next slide">→</button>
+              </div>
+            </div>
+            <figcaption>About Last Night: Bryce Glenn</figcaption>
+          </figure>
+          <figure class="trio-item">
+            <div class="deck tall" aria-label="Artist Spotlight: Alison Rodrigues carousel">
+              <ul class="deck-track" tabindex="0">
+                <li class="deck-slide"><img src="img/alison/s-01.jpg" alt="Artist Spotlight: Alison Rodrigues, slide 1 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/alison/s-02.jpg" alt="Artist Spotlight: Alison Rodrigues, slide 2 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/alison/s-03.jpg" alt="Artist Spotlight: Alison Rodrigues, slide 3 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/alison/s-04.jpg" alt="Artist Spotlight: Alison Rodrigues, slide 4 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/alison/s-05.jpg" alt="Artist Spotlight: Alison Rodrigues, slide 5 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/alison/s-06.jpg" alt="Artist Spotlight: Alison Rodrigues, slide 6 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/alison/s-07.jpg" alt="Artist Spotlight: Alison Rodrigues, slide 7 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/alison/s-08.jpg" alt="Artist Spotlight: Alison Rodrigues, slide 8 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/alison/s-09.jpg" alt="Artist Spotlight: Alison Rodrigues, slide 9 of 10" loading="lazy" width="900" height="1125"></li>
+                <li class="deck-slide"><img src="img/alison/s-10.jpg" alt="Artist Spotlight: Alison Rodrigues, slide 10 of 10" loading="lazy" width="900" height="1125"></li>
+              </ul>
+              <div class="deck-controls">
+                <button type="button" class="deck-btn deck-prev" aria-label="Previous slide">←</button>
+                <span class="deck-count">1 / 10</span>
+                <button type="button" class="deck-btn deck-next" aria-label="Next slide">→</button>
+              </div>
+            </div>
+            <figcaption>Artist Spotlight: Alison Rodrigues</figcaption>
+          </figure>
+          <figure class="trio-item">
+            <div class="trio-video">
+              <video src="img/bitter.mp4" poster="img/bitter-poster.jpg" muted loop playsinline controls preload="metadata" aria-label="In The Studio with BITTER000000, grill maker, interview reel"></video>
+            </div>
+            <figcaption>In The Studio: BITTER000000</figcaption>
+          </figure>
+        </dd>
+        <dt class="exp-label">Outcome</dt>
+        <dd class="exp-detail exp-multi">
+          <p>Over the past year, @milk reached its highest engagement levels, with average likes per post growing roughly 8x, from the 400 to 600 range to a consistent 3,000 to 5,000. Strategic, timely collaborations with creatives like Mary Neely and Kareem Rahma, the creator behind Subway Takes, led to our record-breaking feature on their indie film <i>Or Something</i>, which reached 2.4 million views and over 10,000 likes. Of those views, 95% came from non-followers.</p>
+          <p>Features like this became the template for how @milk tells artist stories, and they proved that reaching beyond our usual circle of artists and co-creating original content could bring a steady stream of new audiences into the Milk world.</p>
+        </dd>
+        <dd class="exp-pair">
+          <div class="deck pair-deck" aria-label="@milk feed highlights">
+            <ul class="deck-track" tabindex="0">
+              <li class="deck-slide"><img src="img/feed/s-1.jpg" alt="Nine recent @milk posts showing likes and comments, from 3,047 to 37.1K likes" loading="lazy" width="1280" height="1641"></li>
+              <li class="deck-slide"><img src="img/feed/s-2.jpg" alt="The same nine @milk posts as they appear in the feed" loading="lazy" width="1280" height="1632"></li>
+            </ul>
+            <div class="deck-controls">
+              <button type="button" class="deck-btn deck-prev" aria-label="Previous slide">←</button>
+              <span class="deck-count">1 / 2</span>
+              <button type="button" class="deck-btn deck-next" aria-label="Next slide">→</button>
+            </div>
+          </div>
+          <div class="deck pair-deck" aria-label="@milk x Or Something carousel">
+            <ul class="deck-track" tabindex="0">
+              <li class="deck-slide"><img src="img/orsom/s-01.jpg" alt="@milk x Or Something carousel, slide 1 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-02.jpg" alt="@milk x Or Something carousel, slide 2 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-03.jpg" alt="@milk x Or Something carousel, slide 3 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-04.jpg" alt="@milk x Or Something carousel, slide 4 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-05.jpg" alt="@milk x Or Something carousel, slide 5 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-06.jpg" alt="@milk x Or Something carousel, slide 6 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-07.jpg" alt="@milk x Or Something carousel, slide 7 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-08.jpg" alt="@milk x Or Something carousel, slide 8 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-09.jpg" alt="@milk x Or Something carousel, slide 9 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-10.jpg" alt="@milk x Or Something carousel, slide 10 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-11.jpg" alt="@milk x Or Something carousel, slide 11 of 12" loading="lazy" width="1280" height="1600"></li>
+              <li class="deck-slide"><img src="img/orsom/s-12.jpg" alt="@milk x Or Something carousel, slide 12 of 12" loading="lazy" width="1280" height="1600"></li>
+            </ul>
+            <div class="deck-controls">
+              <button type="button" class="deck-btn deck-prev" aria-label="Previous slide">←</button>
+              <span class="deck-count">1 / 12</span>
+              <button type="button" class="deck-btn deck-next" aria-label="Next slide">→</button>
+            </div>
+          </div>
+        </dd>
+      </div>
+    </dl>
+
+    <div class="block" style="grid-column:1 / -1">
+      <h2 class="label">What I do</h2>
+      <div class="chips"><span>Content strategy</span><span>Editorial calendars</span><span>Caption writing</span><span>Artist outreach</span><span>Photographer collaborations</span><span>Competitive research</span><span>Pitch decks</span></div>
+    </div>
+
+    <div class="gallery">
+      <img src="img/studio.jpg" alt="Filming a product shoot in the studio" style="object-position:50% 45%">
+      <img src="img/tent.jpg" alt="Milk tent and van at a street event" style="object-position:50% 35%">
+      <img src="img/pro3.jpg" alt="Behind the scenes on set in a loft studio">
+    </div>
+  </div>
+</section>
+
+<!-- ============ SELECTED WORK ============ -->
+<section class="page" id="selected-work" data-bg="var(--bg-content)" hidden>
+  <div class="info">
+    <div lang="vi"><a href="#">Phan Nguyễn Mai Khôi</a></div>
+    <div><a href="https://www.instagram.com/maiph4n/" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/in/phan-nguy%E1%BB%85n-mai-kh%C3%B4i-667519307/" target="_blank" rel="noopener">LinkedIn</a></div>
+    <div class="hide-sm">Brooklyn, New York<br>Parsons, Strategic Design &amp; Management</div>
+    <a class="close" href="#" aria-label="Back to home"></a>
+  </div>
+  <div class="page-top">
+    <div>
+      <h1 class="page-title">Selected Work</h1>
+      <p class="page-sub">Curiosity, explored</p>
+    </div>
+    <ul class="page-nav">
+      <li><a href="#professional">Professional</a></li>
+      <li><a href="#selected-work" aria-current="page">Selected Work</a></li>
+      <li><a href="#about">About me</a></li>
+    </ul>
+  </div>
+  <div class="page-grid">
+    <p class="lede">Projects where I follow a question until it turns into something I can design.</p>
+
+    <article class="project">
+      <h2 class="proj-title">The Refillery</h2>
+      <p class="proj-tagline">Behavior-First Strategy That Turns Refill Into Ritual</p>
+      <dl class="proj-rows">
+        <div class="proj-row">
+          <dt>Challenge</dt>
+          <dd>Beauty produces over 120 billion units of packaging a year, and most of it is too small or too mixed in material to recycle. Curbside systems confuse consumers, and the programs retailers run to address it go unpromoted, digitally and physically. Distinctive packaging is core to how beauty brands stand out in a sea of products. So the real question became: how do you make reuse the easy choice without asking brands to redesign?
+            <img class="dd-img" src="img/refillery-bin.jpg" alt="A recycling bin overflowing with empty beauty and personal care bottles" width="876" height="1000" loading="lazy">
+          </dd>
+        </div>
+        <div class="proj-row">
+          <dt>Approach</dt>
+          <dd>
+            <p>I interviewed three people across the system: a micro beauty influencer, a PACT Collective program manager, and a Sephora sales associate. I paired those conversations with a digital audit of beauty retailer websites. Three insights shaped the direction:</p>
+            <ul class="role-list insight-list">
+              <li><b>Convenience beats conscience.</b> Consumers feel guilty tossing empties but do it anyway, because in-store drop-offs ask them to go out of their way.</li>
+              <li><b>The system is the barrier.</b> Recycling programs exist, but staff aren't trained to mention them and retailer sites bury them in footers. Users who do find the bins often contaminate them.</li>
+              <li><b>Adoption is social.</b> People join when their peers do. Refill culture was already growing on TikTok, which made it the natural place to normalize the behavior.</li>
+            </ul>
+            <p>From there, I built two personas, a sustainably curious early adopter and a trend-driven early majority shopper, and mapped them onto the diffusion of innovation curve to plan who The Refillery would reach first and how.</p>
+          </dd>
+        </div>
+      </dl>
+      <div class="proj-pair">
+        <img class="pair-left" src="img/refleft-1.jpg" alt="Stakeholder map of cosmetic packaging waste: consumers, distributors, brands and manufacturers, and waste management systems" width="1200" height="675" loading="lazy">
+            <div class="deck pair-right" aria-label="The Refillery research slides">
+              <ul class="deck-track" tabindex="0">
+                <li class="deck-slide"><img src="img/refdeck/s-1.jpg" alt="The Refillery, slide 1 of 6: Stakeholder map" loading="lazy" width="1280" height="720"></li>
+                <li class="deck-slide"><img src="img/refdeck/s-2.jpg" alt="The Refillery, slide 2 of 6: Interview with a micro beauty influencer" loading="lazy" width="1280" height="720"></li>
+                <li class="deck-slide"><img src="img/refdeck/s-3.jpg" alt="The Refillery, slide 3 of 6: Interview with a PACT Collective program manager" loading="lazy" width="1280" height="720"></li>
+                <li class="deck-slide"><img src="img/refdeck/s-4.jpg" alt="The Refillery, slide 4 of 6: Interview with a Sephora sales associate" loading="lazy" width="1280" height="720"></li>
+                <li class="deck-slide"><img src="img/refdeck/s-5.jpg" alt="The Refillery, slide 5 of 6: Potential users: two personas" loading="lazy" width="1280" height="720"></li>
+                <li class="deck-slide"><img src="img/refdeck/s-6.jpg" alt="The Refillery, slide 6 of 6: Diffusion of innovation adoption curve" loading="lazy" width="1280" height="720"></li>
+              </ul>
+              <div class="deck-controls">
+                <button type="button" class="deck-btn deck-prev" aria-label="Previous slide">←</button>
+                <span class="deck-count">1 / 6</span>
+                <button type="button" class="deck-btn deck-next" aria-label="Next slide">→</button>
+              </div>
+            </div>
+      </div>
+      <dl class="proj-rows">
+        <div class="proj-row">
+          <dt>Solution</dt>
+          <dd>The Refillery is a return-clean-refill system that works with the packaging beauty brands already make. Users drop off empties at a Refillery location or schedule a pickup through the app. On-site machinery cleans and refills each container before it heads back to its owner.
+          </dd>
+        </div>
+      </dl>
+      <div class="proj-pair">
+        <img class="pair-left" src="img/refposter-1.jpg" alt="Street poster ad for The Refillery: Used bottles? We'll handle it. Schedule a pickup and download the app" width="1200" height="675" loading="lazy">
+        <img class="pair-right" src="img/refsol-1.jpg" alt="Concept rendering of a Refillery cosmetics cleaning factory, with cleaning and refill machinery and containers on a conveyor behind a street-facing window" width="1600" height="900" loading="lazy">
+      </div>
+      <dl class="proj-rows">
+        <div class="proj-row">
+          <dt aria-hidden="true"></dt>
+          <dd>
+            <p><b>An app that removes the effort.</b> Pickup and delivery bring reuse to the doorstep, so convenience works for reuse instead of against it. A tracking dashboard turns every return into visible progress (“You’ve saved 12 bottles”), and short videos of the cleaning process answer hygiene concerns up front.</p>
+            <p class="dd-after"><b>A rollout that makes refill social.</b> Early adopters lead, and creators carry the behavior to the mainstream. Partner creators get free trials to feature refilled products in GRWMs and before-and-afters, building on refill content that’s already trending on TikTok.</p>
+          </dd>
+        </div>
+      </dl>
+      <div class="proj-pair">
+        <img class="pair-left" src="img/refapp-1.jpg" alt="Two Refillery app screens: a home screen with refill, recycle and drop-off categories and cleaning process videos, and a Schedule a Pickup screen with date and time window" width="1600" height="900" loading="lazy">
+        <img class="pair-right" src="img/refroll-1.jpg" alt="Two trending TikTok refill videos: a Korean skincare refill and a zero waste store refilling body lotion" width="1600" height="900" loading="lazy">
+      </div>
+      <dl class="proj-rows">
+        <div class="proj-row">
+          <dt>Outcome</dt>
+          <dd>
+            <p>The final deliverable was a full service concept: a stakeholder map, user personas, an adoption strategy grounded in diffusion of innovation, app screens, and a launch campaign spanning TikTok and out-of-home.</p>
+            <p class="dd-after">The concept resonated across the system. The PACT Collective program manager saw it as more intuitive than current recycling infrastructure and likely to reduce user error, and the influencer I interviewed said app-based pickup would feel as natural as ordering on Grab.</p>
+            <p class="dd-after">What I’d test next: whether refilling can match or beat the price of buying new, the biggest hesitation in my interviews, and how much proof of impact a retail partner like Sephora would need before signing on.</p>
+            <p class="dd-after">This project taught me that sustainability is a communication problem as much as a design one.</p>
+          </dd>
+        </div>
+      </dl>
+    </article>
+
+    <article class="project">
+      <h2 class="proj-title">PepsiCo x Yum! Brands</h2>
+      <p class="proj-tagline">Designing a Reusable Cup Pilot for Yum! Brands</p>
+      <dl class="proj-rows">
+        <div class="proj-row">
+          <dt>Challenge</dt>
+          <dd>How can PepsiCo Beverages North America create a reusable cup ecosystem tailored for fast food chains under Yum! Brands to deliver value for PepsiCo, these restaurants (customers), and consumers?</dd>
+        </div>
+        <div class="proj-row">
+          <dt>Approach</dt>
+          <dd>
+            <p>We started by auditing PepsiCo’s value chain and found its sustainability efforts concentrated upstream in farming, manufacturing, and water. Then we studied existing reuse pilots and mapped every stakeholder the system would touch in Kumu.</p>
+            <ul class="role-list insight-list">
+              <li><b>Sustainability stops at the counter.</b> PepsiCo’s biggest gap was consumer engagement. The moment a customer finishes a drink, the system loses them.</li>
+              <li><b>Free cups don’t come back.</b> In Petaluma’s citywide trial, return rates dropped when cups were free. A deposit gives customers a reason to return the cup.</li>
+              <li><b>Loyalty already exists.</b> Taco Bell’s systems already run tiered rewards and challenges. Building on it meant customers wouldn’t need to adopt anything new.</li>
+            </ul>
+          </dd>
+        </div>
+      </dl>
+      <img class="proj-img" src="img/pepsico-map.jpg" alt="System and stakeholders map connecting the PepsiCo cup program to Yum! Brands, customers, investors, NGOs, the cup system, loyalty program and marketing">
+      <dl class="proj-rows">
+        <div class="proj-row">
+          <dt>Solution</dt>
+          <dd>A gamified reuse system shared across Yum! Brands where customers borrow a cup for a $2 deposit, return it to any Yum! location, and earn points toward rewards. PepsiCo cuts single-use waste, restaurants build repeat visits, and consumers get rewarded for reusing.</dd>
+        </div>
+      </dl>
+      <video class="project-video" src="img/pepsico-h.mp4" poster="img/pepsico-h-poster.jpg" autoplay muted loop playsinline aria-label="Animation of the reusable cup rewards screen"></video>
+      <video class="project-video right" src="img/pepsico-cups.mp4" poster="img/pepsico-cups-poster.jpg" autoplay muted loop playsinline aria-label="Animation of the reusable Pepsi cup, QR label and Taco Bell bottle"></video>
+      <dl class="proj-rows">
+        <div class="proj-row">
+          <dt>Outcome</dt>
+          <dd>
+            <p>We delivered a pilot-ready concept for a systems and stakeholders map, the cup and rewards design, smart bin infrastructure, and a three-month rollout plan across Yum! Brands locations in Midtown and near NYU.</p>
+            <img class="dd-img wide" src="img/pepout-1.jpg" alt="Design proposal slide: pilot design, customer process, infrastructure, technology integration, rewards and partnerships, and a Manhattan pilot map covering Midtown office workers and NYU students" width="1600" height="900" loading="lazy">
+            <p class="dd-after">We designed around the risks as carefully as the rewards. Collectible cups can encourage overconsumption, so each customer can unlock the PATH bottle only once. Hygiene concerns are handled by back-of-house washing on a fixed cleaning protocol, and smart bins take the return process off staff.</p>
+            <p class="dd-after">What we’d measure: weekly return rates, cups lost, and staff and customer feedback, to test whether a $2 deposit and a points system can make returning the cup a habit.</p>
+            <p class="dd-after">This project showed me that the most sustainable system is the one that feels like a reward, not a chore.</p>
+          </dd>
+        </div>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="page" id="about" data-bg="var(--bg-about)" hidden>
+  <div class="info">
+    <div lang="vi"><a href="#">Phan Nguyễn Mai Khôi</a></div>
+    <div><a href="https://www.instagram.com/maiph4n/" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/in/phan-nguy%E1%BB%85n-mai-kh%C3%B4i-667519307/" target="_blank" rel="noopener">LinkedIn</a></div>
+    <div class="hide-sm">Brooklyn, New York<br>Parsons, Strategic Design &amp; Management</div>
+    <a class="close" href="#" aria-label="Back to home"></a>
+  </div>
+  <div class="page-top">
+    <div>
+      <h1 class="page-title">About me</h1>
+      <p class="page-sub">Vietnam to New York</p>
+    </div>
+    <ul class="page-nav">
+      <li><a href="#professional">Professional</a></li>
+      <li><a href="#selected-work">Selected Work</a></li>
+      <li><a href="#about" aria-current="page">About me</a></li>
+    </ul>
+  </div>
+  <div class="page-grid">
+    <div class="about-intro">
+      <div class="about-left">
+        <p class="lede"><b>Hi! I’m Mai.</b><br><b>I care about the future of human connection.</b></p>
+        <img class="about-photo" src="img/about-me.jpg" alt="Mai with two coworkers at the office, circled in green with a hand-drawn arrow and the word me">
+      </div>
+      <div class="about-body">
+        <p>I’m a brand strategist from Vietnam, based in New York, studying Strategic Design &amp; Management at Parsons School of Design.</p>
+        <p>Growing up in Vietnam, I was inspired by people’s resourcefulness in building brands, communities, and social spaces, whatever the circumstances.</p>
+        <p>Combining design research with a passion for creative work, I digest social and turn it into strategies that resonate at every audience touchpoint.</p>
+      </div>
+    </div>
+
+
+    <div class="block third">
+      <h2 class="label">Now</h2>
+      <ul class="rows">
+        <li><b>Parsons</b><span>Strategic Design &amp; Management, graduating spring 2027</span></li>      </ul>
+    </div>
+    <div class="block third">
+      <h2 class="label">Interested in</h2>
+      <ul class="bullets">
+        <li>Secondhand and vintage culture</li>
+        <li>How artists and brands get recognized</li>
+        <li>Cultural trend mapping</li>
+        <li>Resale and e-commerce</li>
+      </ul>
+    </div>
+    <div class="block third">
+      <h2 class="label">Find me</h2>
+      <ul class="rows">
+        <li><b><a href="https://www.instagram.com/maiph4n/" target="_blank" rel="noopener" style="color:inherit">Instagram</a></b><span>@maiph4n</span></li>
+        <li><b><a href="https://www.linkedin.com/in/phan-nguy%E1%BB%85n-mai-kh%C3%B4i-667519307/" target="_blank" rel="noopener" style="color:inherit">LinkedIn</a></b><span lang="vi">Phan Nguyễn Mai Khôi</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="say-hi-band" id="say-hi">
+  <div class="say-hi">
+    <p>I’d love to help out wherever I can.<br>Share your challenges, and let’s co-create something great together.</p>
+    <p class="say-hi-mail">Say hi → <a href="mailto:mkphannguyen@gmail.com">mkphannguyen@gmail.com</a></p>
+  </div>
+  <div class="page-foot"><a class="home-link" href="#" style="margin-left:auto">Back to home</a></div>
+</footer>
+
+<script>
+(function () {
+  const buttons = document.querySelectorAll('#menu button');
+  const shots = document.querySelectorAll('.shot');
+  function show(btn) {
+    const key = btn.dataset.key;
+    document.body.style.backgroundColor = btn.dataset.bg;
+    buttons.forEach(b => b.classList.toggle('is-active', b === btn));
+    shots.forEach(s => s.classList.toggle('on', s.dataset.for === key));
+  }
+  buttons.forEach(btn => {
+    btn.addEventListener('mouseenter', () => show(btn));
+    btn.addEventListener('focus', () => show(btn));
+    btn.addEventListener('click', () => { show(btn); location.hash = btn.dataset.page; });
+  });
+  show(buttons[0]);
+
+  // simple page router: #professional, #selected-work, #about, anything else = home
+  const home = document.getElementById('home');
+  const pages = document.querySelectorAll('.page');
+  let lastBtn = buttons[0];
+  buttons.forEach(b => b.addEventListener('mouseenter', () => { lastBtn = b; }));
+  function route() {
+    const page = document.getElementById(location.hash.slice(1));
+    const isPage = !!page && page.classList.contains('page');
+    home.hidden = isPage;
+    pages.forEach(p => { p.hidden = p !== page; });
+    document.body.classList.toggle('on-page', isPage);
+    if (isPage) {
+      document.body.style.backgroundColor = page.dataset.bg;
+      lastBtn = [...buttons].find(b => b.dataset.page === page.id) || lastBtn;
+      window.scrollTo(0, 0);
+    } else {
+      show(lastBtn);
+    }
+  }
+  window.addEventListener('hashchange', route);
+  // slide decks
+  const deckSyncs = [];
+  document.querySelectorAll('.deck').forEach(deck => {
+    const track = deck.querySelector('.deck-track');
+    const n = track.children.length, cnt = deck.querySelector('.deck-count');
+    const prev = deck.querySelector('.deck-prev'), next = deck.querySelector('.deck-next');
+    const idx = () => track.clientWidth ? Math.round(track.scrollLeft / track.clientWidth) : 0;
+    const go = i => track.scrollTo({ left: Math.max(0, Math.min(n - 1, i)) * track.clientWidth });
+    const sync = () => { const i = idx(); cnt.textContent = (i + 1) + ' / ' + n; prev.disabled = i === 0; next.disabled = i === n - 1; };
+    prev.addEventListener('click', () => go(idx() - 1));
+    next.addEventListener('click', () => go(idx() + 1));
+    track.addEventListener('scroll', () => requestAnimationFrame(sync), { passive: true });
+    track.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { e.preventDefault(); go(idx() + 1); } if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx() - 1); } });
+    sync(); deckSyncs.push(sync);
+  });
+  window.addEventListener('hashchange', () => deckSyncs.forEach(f => f()));
+  // before/after slider
+  document.querySelectorAll('.compare').forEach(c => {
+    const r = c.querySelector('.compare-range');
+    const set = () => c.style.setProperty('--pos', r.value + '%');
+    r.addEventListener('input', set); set();
+  });
+
+
+  // case studies: collapsed to their headline, click to expand or close
+  document.querySelectorAll('#selected-work .project').forEach((proj, k) => {
+    const h = proj.querySelector('.proj-title');
+    if (!h) return;
+    proj.classList.add('collapsible');
+    proj.id = proj.id || 'case-' + (k + 1);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'proj-toggle';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', proj.id);
+    btn.innerHTML = '<span class="proj-toggle-text"></span><span class="proj-icon" aria-hidden="true"></span>';
+    btn.firstChild.textContent = h.textContent;
+    h.textContent = '';
+    h.appendChild(btn);
+    btn.addEventListener('click', () => {
+      const open = proj.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+      proj.querySelectorAll('video').forEach(v => { if (open) { v.play && v.play().catch(() => {}); } else { v.pause && v.pause(); } });
+      if (open) requestAnimationFrame(() => deckSyncs.forEach(f => f()));
+    });
+  });
+  route();
+
+  // headline loop: Mai, then tagline, then back
+  const name = document.getElementById('name');
+  let tag = false;
+  function cycle() {
+    tag = !tag;
+    name.classList.toggle('is-tag', tag);
+    document.body.classList.toggle('tagline-on', tag);
+    setTimeout(cycle, tag ? 4800 : 4000);
+  }
+  setTimeout(cycle, 3200);
+})();
+</script>
+
+</body>
+</html>
